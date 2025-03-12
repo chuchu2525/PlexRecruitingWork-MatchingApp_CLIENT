@@ -30,7 +30,12 @@ const Register = () => {
     try {
       const response = await axios.post('http://localhost:3002/api/v1/users', { user: formData });
       if (response.status === 201) {
-        router.push('/login');
+        const user = response.data;
+        if (user.role === 'student') {
+          router.push(`/student-profile?userId=${user.id}&name=${user.name}`);
+        } else if (user.role === 'company') {
+          router.push(`/company-profile?userId=${user.id}&name=${user.name}`);
+        }
       }
     } catch (error) {
       console.error('Error registering user:', error);
