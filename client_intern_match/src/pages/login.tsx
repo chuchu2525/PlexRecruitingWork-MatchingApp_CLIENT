@@ -28,10 +28,11 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:3002/api/v1/login', formData);
       if (response.status === 200) {
-        const { user, redirect_to } = response.data;
-        if (redirect_to === 'student_profile') {
+        const { user, token } = response.data;
+        localStorage.setItem('token', token);
+        if (user.role === 'student') {
           router.push(`/student-profile?userId=${user.id}&name=${user.name}`);
-        } else if (redirect_to === 'company_profile') {
+        } else if (user.role === 'company') {
           router.push(`/company-profile?userId=${user.id}&name=${user.name}`);
         } else {
           router.push('/');
