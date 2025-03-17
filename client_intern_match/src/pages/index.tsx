@@ -85,6 +85,7 @@ export default function Home() {
             </Link>
             <p>{company.job_description}</p>
             <p>{company.business_description}</p>
+            <button>応募</button>
           </div>
         ))}
       </div>
